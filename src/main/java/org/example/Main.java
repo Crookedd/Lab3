@@ -9,16 +9,16 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         Collections1();
-
+        PrimesGeneratorTest.Part2();
     }
 
     public static void Collections1() {
         int n = 10;
         Integer[] array = new Integer[n];
-        Random rnd = new Random();
+        Random random = new Random();
 
         for (int i = 0; i < n; i++) {
-            array[i] = rnd.nextInt(6);
+            array[i] = random.nextInt(6);
         }
 
         System.out.println("Исходный массив: " + Arrays.toString(array));
