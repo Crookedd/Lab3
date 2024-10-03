@@ -97,6 +97,7 @@ public class Main {
             System.out.println(human);
         }
 
+        //treeSet хранит элементы отсортированными 1)по имени. 2) по фамилии 3) по возрасту
         Set<Human> treeSet = new TreeSet<>(humans);
         System.out.println("\nTreeSet:");
         for (Human human : treeSet) {
