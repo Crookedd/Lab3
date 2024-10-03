@@ -5,10 +5,37 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Collections1();
-        PrimesGeneratorTest.Part2();
-        HumanPart3();
-        MapPart4();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Выберите задачу 1-5");
+        int taskNumber = scanner.nextInt();
+        switch (taskNumber) {
+            case 1:
+                Collections1();
+                break;
+            case 2:
+                PrimesGeneratorTest.Part2();
+                break;
+            case 3:
+                HumanPart3();
+                break;
+            case 4:
+                MapPart4();
+                break;
+            case 5:
+                Map<String, Integer> originalMap = new HashMap<>();
+                originalMap.put("One", 1);
+                originalMap.put("Two", 2);
+                originalMap.put("Three", 3);
+
+                Map<Integer, String> swappedMap = swapKeysAndValues(originalMap);
+
+                System.out.println("Оригинал: " + originalMap);
+                System.out.println("Наоборот: " + swappedMap);
+                break;
+            default:
+                System.out.println("Неверный выбор");
+        }
+        scanner.close();
     }
 
     public static void Collections1() {
@@ -83,12 +110,7 @@ public class Main {
             System.out.println(human);
         }
 
-        TreeSet<Human> tree = new TreeSet<Human>(new Comparator<Human>() {
-            @Override
-            public int compare(Human o1, Human o2) {
-                return o1.age.compareTo(o2.age);
-            }
-        });
+        TreeSet<Human> tree = new TreeSet<>(Comparator.comparing(o -> o.age));
         tree.addAll(humans);
         System.out.println("\nTreeSet с анонимным компаратором по возрасту:");
         for (Human human : tree) {
@@ -106,7 +128,7 @@ public class Main {
         Human Petr = new Human("Петр", "Петров", 21);
         Human Andrey = new Human("Андрей", "Андреев", 22);
 
-        HashSet<Human> humans = new HashSet<Human>();
+        HashSet<Human> humans = new HashSet<>();
         humans.add(Misha);
         humans.add(Alex);
         humans.add(Petr);
@@ -136,6 +158,16 @@ public class Main {
         }
         map.remove("");
         System.out.println(map);
+    }
+
+    public static <K, V> Map<V, K> swapKeysAndValues(Map<K, V> originalMap) {
+        Map<V, K> swappedMap = new HashMap<>();
+
+        for (Map.Entry<K, V> entry : originalMap.entrySet()) {
+            swappedMap.put(entry.getValue(), entry.getKey());
+        }
+
+        return swappedMap;
     }
 
 }

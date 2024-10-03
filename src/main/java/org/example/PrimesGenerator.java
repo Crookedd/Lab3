@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.ListIterator;
-import java.util.Scanner;
 
 public class PrimesGenerator implements ListIterator {
     private Integer[] primes;
