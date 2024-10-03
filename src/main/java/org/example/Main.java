@@ -8,6 +8,7 @@ public class Main {
         Collections1();
         PrimesGeneratorTest.Part2();
         HumanPart3();
+        MapPart4();
     }
 
     public static void Collections1() {
@@ -114,4 +115,27 @@ public class Main {
         humans.add(Andrey);
         return humans;
     }
+
+    public static void MapPart4() {
+        String str = "In Java, Map Interface is present in java.util package represents a" +
+                " mapping between a key and a value." +
+                "Java Map interface is not a subtype of the Collection interface."+
+                "from the rest of the collection types. A map contains unique keys.";
+        str = str.toLowerCase();
+        str = str.replaceAll("\\W", " ");
+
+        System.out.println("\nПовторение:\n");
+        Map<String, Integer> map = new HashMap<>();
+        for(String s: str.split(" ")) {
+            if(map.containsKey(s)) {
+                map.put(s, map.get(s) + 1);
+            }
+            else {
+                map.put(s, 1);
+            }
+        }
+        map.remove("");
+        System.out.println(map);
+    }
+
 }
