@@ -1,15 +1,13 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
         Collections1();
         PrimesGeneratorTest.Part2();
+        HumanPart3();
     }
 
     public static void Collections1() {
@@ -56,5 +54,64 @@ public class Main {
         Arrays.stream(arr)
                 .collect(Collectors.groupingBy(value2-> value2))
                 .forEach((key, value) -> System.out.println(key+" "+value.size()));
+    }
+
+    public static void HumanPart3() {
+        HashSet<Human> humans = getHumans();
+        System.out.println("HashSet:");
+        for (Human human : humans) {
+            System.out.println(human);
+        }
+
+        Set<Human> linkedHashSet = new LinkedHashSet<>(humans);
+        System.out.println("\nLinkedHashSet:");
+        for (Human human : linkedHashSet) {
+            System.out.println(human);
+        }
+
+        Set<Human> treeSet = new TreeSet<>(humans);
+        System.out.println("\nTreeSet:");
+        for (Human human : treeSet) {
+            System.out.println(human);
+        }
+
+        Set<Human> treeSetWithComparator = new TreeSet<>(new HumanComparatorByName());
+        treeSetWithComparator.addAll(humans);
+        System.out.println("\nTreeSet с компаратором по фамилии:");
+        for (Human human : treeSetWithComparator) {
+            System.out.println(human);
+        }
+
+        TreeSet<Human> tree = new TreeSet<Human>(new Comparator<Human>() {
+            @Override
+            public int compare(Human o1, Human o2) {
+                return o1.age.compareTo(o2.age);
+            }
+        });
+        tree.addAll(humans);
+        System.out.println("\nTreeSet с анонимным компаратором по возрасту:");
+        for (Human human : tree) {
+            System.out.println(human);
+        }
+
+
+    }
+
+    private static HashSet<Human> getHumans() {
+        Human Misha = new Human("Михаил", "Михайлович", 10);
+        Human Alex = new Human("Алексей", "Попов", 20);
+        Human Ivan = new Human("Иван", "Иванов", 12);
+        Human Sidor = new Human("Сидор", "Сидоров", 28);
+        Human Petr = new Human("Петр", "Петров", 21);
+        Human Andrey = new Human("Андрей", "Андреев", 22);
+
+        HashSet<Human> humans = new HashSet<Human>();
+        humans.add(Misha);
+        humans.add(Alex);
+        humans.add(Petr);
+        humans.add(Sidor);
+        humans.add(Ivan);
+        humans.add(Andrey);
+        return humans;
     }
 }
