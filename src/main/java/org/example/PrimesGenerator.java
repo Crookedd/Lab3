@@ -1,86 +1,57 @@
 package org.example;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-import java.util.ListIterator;
-
-public class PrimesGenerator implements ListIterator {
+public class PrimesGenerator implements Iterable<Integer> {
     private Integer[] primes;
-    private int currentSize;
-    private int currentIndex;
 
-    public void CreatePrimes(int n) {
+    public PrimesGenerator() {
+        primes = new Integer[0]; // Инициализируем пустой массив
+    }
+
+    public void createPrimes(int n) {
         primes = new Integer[n];
-        currentSize = n;
-        currentIndex = 0;
-
         int index = 0;
         int i = 2;
         while (index < n) {
-            if (isPrime(i))
+            if (isPrime(i)) {
                 primes[index++] = i;
+            }
             i++;
         }
     }
 
     private boolean isPrime(int n) {
-        for (int i = 2; i <= Math.sqrt(n); i++)
+        if (n < 2) return false; // Проверка на простое число
+        for (int i = 2; i <= Math.sqrt(n); i++) {
             if (n % i == 0) return false;
+        }
         return true;
     }
 
-    // Проверяет, существует ли следующий элемент
     @Override
-    public boolean hasNext() {
-        return currentIndex < currentSize;
+    public Iterator<Integer> iterator() {
+        return Arrays.asList(primes).iterator(); // Возвращаем итератор для массива
     }
 
-    //Этот метод возвращает следующий элемент и увеличивает курсор на одну позицию.
-    @Override
-    public Object next() {
-        return primes[currentIndex++];
-    }
+    public Iterator<Integer> reverseIterator() {
+        return new Iterator<>() {
+            private int index = primes.length - 1; // Используем длину массива
 
-    @Override
-    public boolean hasPrevious() {
-        return currentIndex > 0;
-    }
-    //Этот метод возвращает предыдущий элемент списка и
-    // сдвигает курсор на одну позицию назад
-    @Override
-    public Object previous() {
-        return primes[--currentIndex];
-    }
+            @Override
+            public boolean hasNext() {
+                return index >= 0;
+            }
 
-    //Этот метод возвращает индекс элемента,
-    // который был бы возвращен при вызове метода next().
-    @Override
-    public int nextIndex() {
-        return 0;
-    }
-    //Этот метод возвращает индекс элемента,
-    // который был бы возвращен при вызове предыдущего метода().
-    @Override
-    public int previousIndex() {
-        return 0;
-    }
-
-    //удаление
-    @Override
-    public void remove() {
-
-    }
-
-    //Этот метод заменяет последний элемент,
-    // который был возвращен при вызове метода next() или previous(),
-    // указанным элементом.
-    @Override
-    public void set(Object o) {
-
-    }
-
-    //добавление
-    @Override
-    public void add(Object o) {
-
+            @Override
+            public Integer next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return primes[index--]; // Возвращаем элемент и уменьшаем индекс
+            }
+        };
     }
 }
 

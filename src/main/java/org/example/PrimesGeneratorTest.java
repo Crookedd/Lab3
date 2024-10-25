@@ -1,22 +1,24 @@
 package org.example;
 
+import java.util.Iterator;
+
 public class PrimesGeneratorTest {
-    public static void Part2() {
+    public static void part2() {
         PrimesGenerator primesGenerator = new PrimesGenerator();
-        primesGenerator.CreatePrimes(10);
+        primesGenerator.createPrimes(10);
 
-        System.out.println("Первые " + 10 + " простых чисел:");
-        while (primesGenerator.hasNext()) {
-            System.out.print(primesGenerator.next() + " ");
+        System.out.println("Первые 10 простых чисел:");
+        for (Integer prime : primesGenerator) {
+            System.out.print(prime + " ");
         }
         System.out.println();
 
-        // Сбросим итератор для обратного вывода
-        System.out.println("Первые " + 10 + " простых чисел в обратном порядке:");
-        while (primesGenerator.hasPrevious()) {
-            System.out.print(primesGenerator.previous() + " ");
+        // Использование обратного итератора
+        System.out.println("Первые 10 простых чисел в обратном порядке:");
+        Iterator<Integer> reverseIterator = primesGenerator.reverseIterator();
+        while (reverseIterator.hasNext()) {
+            System.out.print(reverseIterator.next() + " ");
         }
         System.out.println();
-        
     }
 }
